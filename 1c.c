@@ -4,7 +4,7 @@ Name : 1c.c
 Author : Ankur Sinha
 Description : Create the following types of a files using (i) shell command (ii) system call
 b. FIFO (mkfifo Library Function or mknod system call)
-Date : 29th Aug, 2024
+Date : 14th Aug, 2024
 ================================================================================
 */
 

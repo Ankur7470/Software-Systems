@@ -4,7 +4,7 @@ Name : 8.c
 Author : Ankur Sinha
 Description : Write a program to open a file in read only mode, read line by line and display each line as it is read.
 Close the file when end of file is reached.
-Date : 29th Aug, 2024
+Date : 17th Aug, 2024
 ================================================================================
 */
 

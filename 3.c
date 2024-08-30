@@ -3,7 +3,7 @@
 Name : 3.c
 Author : Ankur Sinha
 Description : Write a program to create a file and print the file descriptor value. Use creat ( ) system call
-Date : 29th Aug, 2024
+Date : 14th Aug, 2024
 ================================================================================
 */
 

@@ -4,7 +4,7 @@ Name : 2.c
 Author : Ankur Sinha
 Description : Write a simple program to execute in an infinite loop at the background. Go to /proc directory and
 identify all the process related information in the corresponding proc directory.
-Date : 29th Aug, 2024
+Date : 14th Aug, 2024
 ================================================================================
 */
 
