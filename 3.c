@@ -13,7 +13,7 @@ Date : 14th Aug, 2024
 
 int main(){
 	char *fname = "newfile_3.txt";
-	int filedesc = creat(fname, 0644); //read and write for owner, read for groups and others
+	int filedesc = creat(fname, 0644); 
 	if(filedesc == -1){
 		printf("Error");
 		return 1;

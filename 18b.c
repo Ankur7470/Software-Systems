@@ -22,13 +22,13 @@ Date : 29th Aug, 2024
 
 void lockRecord(int fd, off_t offset, short type) {
     struct flock lock;
-    lock.l_type = type;       // Type of lock: F_RDLCK (read)
-    lock.l_whence = SEEK_SET; // Lock from the beginning of the file
-    lock.l_start = offset;    // Start locking at the given offset
-    lock.l_len = RECORD_SIZE; // Length of the lock (size of one record)
-    lock.l_pid = getpid();    // Process ID
+    lock.l_type = type;       
+    lock.l_whence = SEEK_SET;
+    lock.l_start = offset;    
+    lock.l_len = RECORD_SIZE; 
+    lock.l_pid = getpid();    
 
-    if (fcntl(fd, F_SETLKW, &lock) == -1) {  // Use F_SETLKW for blocking locks
+    if (fcntl(fd, F_SETLKW, &lock) == -1) {  
         perror("fcntl - lock");
         _exit(1);
     }
@@ -36,10 +36,10 @@ void lockRecord(int fd, off_t offset, short type) {
 
 void unlockRecord(int fd, off_t offset) {
     struct flock lock;
-    lock.l_type = F_UNLCK;    // Unlock
-    lock.l_whence = SEEK_SET; // Unlock from the beginning of the file
-    lock.l_start = offset;    // Unlock from offset
-    lock.l_len = RECORD_SIZE; // Length of the unlock
+    lock.l_type = F_UNLCK;    
+    lock.l_whence = SEEK_SET; 
+    lock.l_start = offset;   
+    lock.l_len = RECORD_SIZE; 
 
     if (fcntl(fd, F_SETLKW, &lock) == -1) {
         perror("fcntl - unlock");
@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
         close(fd);
         return 1;
     }
-    buffer[RECORD_SIZE] = '\0'; // Null-terminate the string
+    buffer[RECORD_SIZE] = '\0'; 
     printf("Record %d data: %s", record_num, buffer);
 
     printf("Press Enter to release the lock...\n");

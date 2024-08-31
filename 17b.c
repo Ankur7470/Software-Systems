@@ -6,7 +6,7 @@ Description : Write a program to simulate online ticket reservation. Implement w
 Write a program to open a file, store a ticket number and exit. Write a separate program, to
 open the file, implement write lock, read the ticket number, increment the number and print
 the new ticket number then close the file.
-Date : 29th Aug, 2024
+Date : 30th Aug, 2024
 ================================================================================
 */
 
@@ -14,46 +14,54 @@ Date : 29th Aug, 2024
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define FILENAME "ticket.txt"
 
-int main() {
+void main() {
     int fd;
     int ticket_number;
+    char ticket_num_str[12];
 
     fd = open(FILENAME, O_RDWR);
     if (fd == -1) {
         perror("open");
-        return 1;
+        exit(0);
     }
 
     struct flock lock;
-    lock.l_type = F_WRLCK;       // Write lock
-    lock.l_whence = SEEK_SET;    // From the beginning of the file
-    lock.l_start = 0;            // Start of the lock
-    lock.l_len = 0;              // Lock the whole file (0 means until EOF)
+    lock.l_type = F_WRLCK;    
+    lock.l_whence = SEEK_SET;   
+    lock.l_start = 0;          
+    lock.l_len = 0;           
 
     if (fcntl(fd, F_SETLKW, &lock) == -1) {
         perror("fcntl - lock");
         close(fd);
-        return 1;
+        exit(0);
     }
 
-    if (read(fd, &ticket_number, sizeof(ticket_number)) != sizeof(ticket_number)) {
+    ssize_t n = read(fd, ticket_num_str, sizeof(ticket_num_str) - 1);
+    if (n == -1) {
         perror("read");
         close(fd);
-        return 1;
+        exit(1);
     }
 
+    ticket_num_str[n] = '\0';
+
+    ticket_number = atoi(ticket_num_str);
     printf("Current ticket number: %d\n", ticket_number);
 
     ticket_number++;
 
+    sprintf(ticket_num_str, "%d", ticket_number);
+
     lseek(fd, 0, SEEK_SET);
-    if (write(fd, &ticket_number, sizeof(ticket_number)) != sizeof(ticket_number)) {
+    if (write(fd, ticket_num_str, strlen(ticket_num_str)) != strlen(ticket_num_str)) {
         perror("write");
         close(fd);
-        return 1;
+        exit(0);
     }
 
     printf("New ticket number: %d\n", ticket_number);
@@ -62,12 +70,10 @@ int main() {
     if (fcntl(fd, F_SETLK, &lock) == -1) {
         perror("fcntl - unlock");
         close(fd);
-        return 1;
+        exit(0);
     }
 
     close(fd);
-
-    return 0;
 }
 
 /*

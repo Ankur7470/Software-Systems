@@ -17,13 +17,13 @@ Date : 29th Aug, 2024
 
 void manageFileLock(int fd, short type) {
     struct flock lock;
-    lock.l_type = type;       // Type of lock
-    lock.l_whence = SEEK_SET; // Lock from the beginning of the file
-    lock.l_start = 0;         // Start locking from offset 0
-    lock.l_len = 0;           // Lock the whole file
-    lock.l_pid = getpid();    // Process ID
+    lock.l_type = type;       
+    lock.l_whence = SEEK_SET; 
+    lock.l_start = 0;         
+    lock.l_len = 0;           
+    lock.l_pid = getpid();    
 
-    if (fcntl(fd, F_SETLKW, &lock) == -1) {  // Use F_SETLKW for blocking locks
+    if (fcntl(fd, F_SETLKW, &lock) == -1) {  
         perror("fcntl");
         _exit(1);
     }

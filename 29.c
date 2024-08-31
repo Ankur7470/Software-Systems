@@ -32,7 +32,7 @@ void printSchedulingPolicy(int policy) {
 
 void setPolicy(int policy) {
     struct sched_param param;
-    param.sched_priority = 1;  // Set a valid priority (1 for SCHED_FIFO/SCHED_RR)
+    param.sched_priority = 1; 
 
     if (sched_setscheduler(0, policy, &param) == -1) {
         perror("sched_setscheduler");
