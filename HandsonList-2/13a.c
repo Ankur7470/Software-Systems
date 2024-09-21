@@ -14,10 +14,16 @@ Date : 18th Sep, 2024
 #include <signal.h>
 #include <unistd.h>
 
+void sigint_handler(int sig) {
+    printf("Caught SIGINT (Ctrl+C), but still running...\n");
+}
+
 int main() {
+    signal(SIGINT, sigint_handler);
+
     printf("Process (PID: %d) is waiting for SIGSTOP...\n", getpid());
 
-    while (1) {
+    while (1){
         pause(); 
     }
 

@@ -20,9 +20,10 @@ int main() {
     printf("Enter the PID of the process to send SIGSTOP to: ");
     scanf("%d", &target_pid);
 
-    if (kill(target_pid, SIGSTOP) == 0) {
+    if(kill(target_pid, SIGSTOP) == 0){
         printf("SIGSTOP sent to process (PID: %d)\n", target_pid);
-    } else {
+    } 
+    else{
         perror("Failed to send SIGSTOP");
     }
 
